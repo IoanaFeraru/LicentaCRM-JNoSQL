@@ -1,4 +1,4 @@
-package org.licenta2024JNoSQL;
+package org.licenta2024JNoSQL.Meta;
 
 import jakarta.nosql.document.DocumentCollectionManager;
 import org.eclipse.microprofile.config.inject.ConfigProperty;

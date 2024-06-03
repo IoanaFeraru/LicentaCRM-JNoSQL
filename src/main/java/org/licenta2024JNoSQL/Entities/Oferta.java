@@ -3,6 +3,7 @@ package org.licenta2024JNoSQL.Entities;
 import jakarta.nosql.mapping.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.licenta2024JNoSQL.Entities.Produs.Produs;
 
 import java.util.List;
 

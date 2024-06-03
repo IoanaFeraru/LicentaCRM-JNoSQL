@@ -1,9 +1,10 @@
 package org.licenta2024JNoSQL.Repositories;
 
-import org.licenta2024JNoSQL.Entities.*;
 import jakarta.nosql.mapping.Param;
 import jakarta.nosql.mapping.Query;
 import jakarta.nosql.mapping.Repository;
+import org.licenta2024JNoSQL.Entities.Produs.Produs;
+
 import java.util.List;
 
 public interface ProdusRepository extends Repository<Produs, String> {

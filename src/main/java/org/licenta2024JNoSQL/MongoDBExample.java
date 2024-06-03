@@ -6,8 +6,17 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
+//ToDo repoAchizitie
+//ToDo Update App Client with actual achiztii
+//ToDo repoOferta
+//ToDO repoCampanie
+
+//ToDO: calculate rating of product
+//ToDo: calcultate total achizitie price and points value
+//ToDo: automate loyalty points
 public class MongoDBExample {
     public static void main(String[] args) {
+        /*
         String uri = "mongodb://localhost:27017/";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
@@ -21,5 +30,6 @@ public class MongoDBExample {
         } catch (Exception e) {
             e.printStackTrace();
         }
+         */
     }
 }
