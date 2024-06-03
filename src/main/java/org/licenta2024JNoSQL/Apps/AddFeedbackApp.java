@@ -5,7 +5,7 @@ import org.licenta2024JNoSQL.Entities.Client.Client;
 import org.licenta2024JNoSQL.Entities.Client.Embeded.Feedback;
 import org.licenta2024JNoSQL.Repositories.ClientRepository;
 import org.licenta2024JNoSQL.Repositories.ProdusRepository;
-import org.licenta2024JNoSQL.Utils.FeedbackUtil;
+import org.licenta2024JNoSQL.Utilities.FeedbackUtil;
 
 import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.se.SeContainerInitializer;
