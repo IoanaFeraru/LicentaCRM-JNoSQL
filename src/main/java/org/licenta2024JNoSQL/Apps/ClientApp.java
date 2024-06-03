@@ -10,7 +10,7 @@ import org.licenta2024JNoSQL.Entities.Client.Enums.Judet;
 import org.licenta2024JNoSQL.Entities.Client.Enums.StatusMembru;
 import org.licenta2024JNoSQL.Repositories.ClientRepository;
 import org.licenta2024JNoSQL.Repositories.ProdusRepository;
-import org.licenta2024JNoSQL.Utils.FeedbackUtil;
+import org.licenta2024JNoSQL.Utilities.FeedbackUtil;
 
 import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.se.SeContainerInitializer;
