@@ -15,4 +15,7 @@ public interface AchizitieRepository extends Repository<Achizitie, Integer> {
 
     @Query("select * from Achizitie where codAchizitie = @codAchizitie")
     Optional<Achizitie> findByCodAchizitie(@Param("codAchizitie") int codAchizitie);
+
+    @Query("select * from Achizitie")
+    List<Achizitie> findAll();
 }

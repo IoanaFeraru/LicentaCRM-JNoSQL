@@ -11,4 +11,7 @@ public interface OfertaRepository extends Repository<Oferta, String> {
 
     @Query("select * from Oferta where codOferta = @codOferta")
     List<Oferta> findByCodOferta(@Param("codOferta") String codOferta);
+
+    @Query("select * from Oferta")
+    List<Oferta> findAll();
 }

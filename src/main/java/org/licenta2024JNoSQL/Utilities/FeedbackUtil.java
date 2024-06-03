@@ -27,6 +27,7 @@ public class FeedbackUtil {
         List<Client> clients = clientRepository.findAll();
 
         List<Feedback> feedbackList = clients.stream()
+                .filter(client -> client.getFeedback() != null)
                 .flatMap(client -> client.getFeedback().stream())
                 .filter(feedback -> feedback.getCodProdus().equals(codProdus))
                 .collect(Collectors.toList());
@@ -42,4 +43,5 @@ public class FeedbackUtil {
             template.update(produs);
         }
     }
+
 }

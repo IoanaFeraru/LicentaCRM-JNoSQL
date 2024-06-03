@@ -1,17 +1,18 @@
 package org.licenta2024JNoSQL.Utilities;
 
-import jakarta.nosql.mapping.document.DocumentTemplate;
-import org.licenta2024JNoSQL.Entities.Achizitie.Achizitie;
-import org.licenta2024JNoSQL.Entities.Achizitie.LinieAchizitie;
-import org.licenta2024JNoSQL.Entities.Client.Client;
+import org.licenta2024JNoSQL.Entities.Achizitie.*;
+import org.licenta2024JNoSQL.Entities.Client.*;
 import org.licenta2024JNoSQL.Entities.Client.Embeded.IstoricPuncte;
-import org.licenta2024JNoSQL.Entities.Oferta.Oferta;
 import org.licenta2024JNoSQL.Entities.Oferta.Enums.TipReducere;
+import org.licenta2024JNoSQL.Entities.Oferta.Oferta;
+import org.licenta2024JNoSQL.Entities.Oferta.Embeded.ProdusCost;
 import org.licenta2024JNoSQL.Entities.Produs.Produs;
 import org.licenta2024JNoSQL.Repositories.ClientRepository;
 import org.licenta2024JNoSQL.Repositories.OfertaRepository;
 import org.licenta2024JNoSQL.Repositories.ProdusRepository;
+import jakarta.nosql.mapping.document.DocumentTemplate;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 
@@ -33,8 +34,13 @@ public class AchizitieUtil {
 
                 if (ofertaOpt.isPresent()) {
                     Oferta oferta = ofertaOpt.get();
-                    if (oferta.getTipReducere() == TipReducere.PRODUS && oferta.getProduse().stream().anyMatch(p -> p.getCodProdus().equals(produs.getCodProdus()))) {
-                        lineValue = 0;
+                    if (oferta.getTipReducere() == TipReducere.PRODUS) {
+                        for (ProdusCost pc : oferta.getProduseCost()) {
+                            if (pc.getProdus().getCodProdus().equals(produs.getCodProdus())) {
+                                lineValue = 0;
+                                break;
+                            }
+                        }
                     }
                 }
 
@@ -63,8 +69,10 @@ public class AchizitieUtil {
             Optional<Oferta> ofertaOpt = ofertaRepository.findByCodOferta(achizitie.getCodOferta()).stream().findFirst();
             if (ofertaOpt.isPresent()) {
                 Oferta oferta = ofertaOpt.get();
-                if (oferta.getCostPuncte() != null) {
-                    valoarePuncte -= oferta.getCostPuncte();
+                if (oferta.getTipReducere() == TipReducere.PRODUS) {
+                    for (ProdusCost pc : oferta.getProduseCost()) {
+                        valoarePuncte -= pc.getCostPuncte();
+                    }
                 }
             }
         }
@@ -86,6 +94,9 @@ public class AchizitieUtil {
             istoricPuncte.setValoarePuncte(Integer.parseInt(achizitie.getValoarePuncte()));
             istoricPuncte.setDataProcesare(new Date());
 
+            if (client.getIstoricPuncte() == null) {
+                client.setIstoricPuncte(new ArrayList<>());
+            }
             client.getIstoricPuncte().add(istoricPuncte);
 
             template.update(client);

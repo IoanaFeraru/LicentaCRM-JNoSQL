@@ -44,7 +44,6 @@ public class Client {
 
     @Column
     @Min(0)
-    @Max(10000)
     private int puncteLoialitate;
 
     @Column

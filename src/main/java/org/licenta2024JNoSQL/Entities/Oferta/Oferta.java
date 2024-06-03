@@ -3,8 +3,8 @@ package org.licenta2024JNoSQL.Entities.Oferta;
 import jakarta.nosql.mapping.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.licenta2024JNoSQL.Entities.Oferta.Embeded.ProdusCost;
 import org.licenta2024JNoSQL.Entities.Oferta.Enums.*;
-import org.licenta2024JNoSQL.Entities.Produs.Produs;
 
 import javax.validation.constraints.*;
 import java.util.List;
@@ -31,9 +31,5 @@ public class Oferta {
     private Double valoareReducere;
 
     @Column
-    private Integer costPuncte;
-
-    @Column
-    @Size(min = 1)
-    private List<Produs> produse;
+    private List<ProdusCost> produseCost;
 }

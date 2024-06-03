@@ -8,7 +8,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 @ApplicationScoped
-class DocumentManagerProducer {
+public class DocumentManagerProducer {
 
     @Inject
     @ConfigProperty(name = "document")

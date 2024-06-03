@@ -1,4 +1,4 @@
-package org.licenta2024JNoSQL.Apps;
+package org.licenta2024JNoSQL.Apps.Insertions;
 
 import jakarta.nosql.mapping.document.DocumentTemplate;
 import org.licenta2024JNoSQL.Entities.Campanie.Campanie;
@@ -7,7 +7,11 @@ import org.licenta2024JNoSQL.Entities.Campanie.Segment;
 import org.licenta2024JNoSQL.Entities.Campanie.Enums.Status;
 import org.licenta2024JNoSQL.Entities.Campanie.Enums.Metoda;
 import org.licenta2024JNoSQL.Entities.Campanie.Enums.Tip;
+import org.licenta2024JNoSQL.Entities.Client.Client;
+import org.licenta2024JNoSQL.Entities.Oferta.Oferta;
 import org.licenta2024JNoSQL.Repositories.CampanieRepository;
+import org.licenta2024JNoSQL.Repositories.ClientRepository;
+import org.licenta2024JNoSQL.Repositories.OfertaRepository;
 
 import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.se.SeContainerInitializer;
@@ -16,69 +20,79 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javax.validation.ConstraintViolation;
 
 public class CampanieApp {
 
     public static void main(String[] args) {
 
-        try (SeContainer container = SeContainerInitializer
-                .newInstance().initialize()) {
+        try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+            createCampanii(container);
+        }
+        System.exit(0);
+    }
 
-            CampanieRepository campanieRepository = container.select(CampanieRepository.class).get();
-            DocumentTemplate template = container.select(DocumentTemplate.class).get();
+    public static void createCampanii(SeContainer container) {
+        CampanieRepository campanieRepository = container.select(CampanieRepository.class).get();
+        OfertaRepository ofertaRepository = container.select(OfertaRepository.class).get();
+        DocumentTemplate template = container.select(DocumentTemplate.class).get();
+        ClientRepository clientRepository = container.select(ClientRepository.class).get();
+        List<Client> allClients = clientRepository.findAll();
 
-            // Create a new Campanie instance
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        List<Oferta> allOffers = ofertaRepository.findAll();
+
+        for (int i = 0; i < allOffers.size(); i++) {
+            Oferta offer = allOffers.get(i);
+
             Campanie campanie = new Campanie();
-            campanie.setCodCampanie(1);
-            campanie.setCodOferta("O1");
-            campanie.setNume("Campanie Noua");
+            campanie.setCodCampanie(i + 1);
+            campanie.setCodOferta(offer.getCodOferta());
+            campanie.setNume("Campanie pentru Oferta " + offer.getCodOferta());
             campanie.setDataStart(new Date());
-            campanie.setDataStop(new Date(System.currentTimeMillis() + 86400000L)); // 1 day later
+            campanie.setDataStop(null);
             campanie.setTip(Tip.EN_MASSE);
 
-            // Create a new Comunicare instance
             Comunicare comunicare = new Comunicare();
-            comunicare.setCodComunicare(1);
-            comunicare.setScop("Promovare noua oferta");
-            comunicare.setStatus(Status.PENDING);
+            comunicare.setCodComunicare(i + 1);
+            comunicare.setScop("Promovare oferta " + offer.getCodOferta());
+            comunicare.setStatus(Status.SENT);
             comunicare.setMetoda(Metoda.EMAIL);
 
-            // Create a new Segment instance
+            Random random = new Random();
+            int numberOfClients = random.nextInt(allClients.size()) + 1;
+            List<String> randomClients = IntStream.range(0, numberOfClients)
+                    .mapToObj(index -> allClients.get(random.nextInt(allClients.size())).getCodClient())
+                    .distinct()
+                    .collect(Collectors.toList());
             Segment segment = new Segment();
-            segment.setCodSegment(1);
-            segment.setNume("Segment Nou");
+            segment.setCodSegment(i + 1);
+            segment.setNume("Segment pentru Oferta " + offer.getCodOferta());
             segment.setDataCreare(new Date().toString());
             segment.setCriterii(List.of("criteriu1", "criteriu2"));
-            segment.setClienti(List.of("C1", "C2"));
+            segment.setClienti(randomClients);
 
-            // Set segment to comunicare
             comunicare.setSegment(segment);
-
-            // Set comunicare to campanie
             campanie.setComunicare(comunicare);
 
-            // Validate Campanie entity
-            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-            Validator validator = factory.getValidator();
             Set<ConstraintViolation<Campanie>> violations = validator.validate(campanie);
 
             if (violations.isEmpty()) {
-                // Insert Campanie entity into the database
                 template.insert(campanie);
                 campanieRepository.save(campanie);
 
-                // Query and print the inserted Campanie
                 List<Campanie> queriedCampanieList = campanieRepository.findByCodCampanie(campanie.getCodCampanie());
                 if (!queriedCampanieList.isEmpty()) {
                     System.out.println("query : " + queriedCampanieList.get(0));
                 } else {
                     System.out.println("No Campanie found with codCampanie: " + campanie.getCodCampanie());
                 }
-
-                // DocumentDeleteQuery deleteQuery = delete().from("Campanie").where("_id").eq(campanie.getCodCampanie()).build();
-                // template.delete(deleteQuery);
 
                 List<Campanie> queriedCampanieListAgain = campanieRepository.findByCodCampanie(campanie.getCodCampanie());
                 System.out.println("query again: " + queriedCampanieListAgain);
@@ -88,6 +102,5 @@ public class CampanieApp {
                 }
             }
         }
-        System.exit(0);
     }
 }
