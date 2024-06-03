@@ -1,9 +1,12 @@
 package org.licenta2024JNoSQL.Entities.Campanie;
 
-
 import jakarta.nosql.mapping.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.licenta2024JNoSQL.Entities.Campanie.Enums.Status;
+import org.licenta2024JNoSQL.Entities.Campanie.Enums.Metoda;
+
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -17,11 +20,14 @@ public class Comunicare {
     private String scop;
 
     @Column
-    private String status;
+    @NotNull
+    private Status status;
 
     @Column
-    private String metoda;
+    @NotNull
+    private Metoda metoda;
 
     @Column
+    @NotNull
     private Segment segment;
 }

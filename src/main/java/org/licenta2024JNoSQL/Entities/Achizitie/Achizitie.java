@@ -1,9 +1,14 @@
 package org.licenta2024JNoSQL.Entities.Achizitie;
 
-import jakarta.nosql.mapping.*;
+import jakarta.nosql.mapping.Column;
+import jakarta.nosql.mapping.Entity;
+import jakarta.nosql.mapping.Id;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -13,19 +18,19 @@ import java.util.List;
 public class Achizitie {
 
     @Id
-    private String id;
-
-    @Column
     private int codAchizitie;
 
     @Column
+    @NotNull
     private Date data;
 
     @Column
+    @NotBlank
     private String codClient;
 
     @Column
-    private List<LinieAchizitie> linieAchizitie;
+    @Size(min = 1)
+    private List<@NotNull LinieAchizitie> linieAchizitie;
 
     @Column
     private String codOferta;

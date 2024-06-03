@@ -8,7 +8,6 @@ import org.licenta2024JNoSQL.Entities.Client.Embeded.Feedback;
 import org.licenta2024JNoSQL.Entities.Client.Embeded.IstoricPuncte;
 import org.licenta2024JNoSQL.Entities.Client.Embeded.WishList;
 import org.licenta2024JNoSQL.Entities.Client.Enums.StatusMembru;
-import org.licenta2024JNoSQL.Meta.AbstractEntity;
 
 import javax.validation.constraints.*;
 import java.util.Date;
@@ -17,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity("Client")
-public class Client extends AbstractEntity {
+public class Client {
 
     @Id
     private String codClient;  // Primary key
@@ -71,9 +70,4 @@ public class Client extends AbstractEntity {
 
     @Column("Tag-uri")
     private List<String> tagUri;
-
-    @Override
-    public String getId() {
-        return codClient;
-    }
 }

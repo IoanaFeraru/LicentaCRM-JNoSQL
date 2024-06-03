@@ -22,15 +22,12 @@ public class ProdusApp {
                 .newInstance().initialize()) {
 
             Produs produs = new Produs();
-            produs.setCodProdus("P2");
-            produs.setNume("Laptop");
-            produs.setRating(4.5);
+            produs.setCodProdus("P1");
+            produs.setNume("Radio");
+            produs.setRating(3.0);
             produs.setStatus(Status.INSTOCK);
-            produs.setPret(1500.0);
-            produs.setTagUri(List.of("Electronics", "Computer"));
-
-            // Set creation metadata
-            produs.onCreate();
+            produs.setPret(150.0);
+            produs.setTagUri(List.of("Electronics", "Radio"));
 
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
@@ -42,12 +39,6 @@ public class ProdusApp {
 
                 final Optional<Produs> queriedProdus = template.find(Produs.class, "P1");
                 System.out.println("query : " + queriedProdus);
-
-                // Update metadata
-                queriedProdus.ifPresent(p -> {
-                    p.onUpdate();
-                    template.update(p);
-                });
 
                 //DocumentDeleteQuery deleteQuery = delete().from("Produs").where("_id").eq("P1").build();
                 //template.delete(deleteQuery);

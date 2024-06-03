@@ -38,4 +38,7 @@ public interface ProdusRepository extends Repository<Produs, String> {
     List<Produs> queryByTagUri(@Param("tagUri") List<String> tagUri);
 
     List<Produs> findByTagUri(List<String> tagUri);
+
+    @Query("select * from Produs")
+    List<Produs> findAll();
 }

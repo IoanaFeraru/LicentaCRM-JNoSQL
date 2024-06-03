@@ -1,10 +1,12 @@
-package org.licenta2024JNoSQL.Entities;
+package org.licenta2024JNoSQL.Entities.Oferta;
 
 import jakarta.nosql.mapping.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.licenta2024JNoSQL.Entities.Oferta.Enums.*;
 import org.licenta2024JNoSQL.Entities.Produs.Produs;
 
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Getter
@@ -13,23 +15,25 @@ import java.util.List;
 public class Oferta {
 
     @Id
-    private String id;
-
-    @Column
     private String codOferta;
 
     @Column
-    private String status;
+    @NotNull
+    private Status status;
 
     @Column
-    private String tipReducere;
+    @NotNull
+    private TipReducere tipReducere;
 
     @Column
+    @NotNull
+    @Min(0)
     private Double valoareReducere;
 
     @Column
     private Integer costPuncte;
 
     @Column
+    @Size(min = 1)
     private List<Produs> produse;
 }

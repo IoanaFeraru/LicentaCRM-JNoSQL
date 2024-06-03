@@ -4,6 +4,7 @@ import jakarta.nosql.mapping.Param;
 import jakarta.nosql.mapping.Query;
 import jakarta.nosql.mapping.Repository;
 import org.licenta2024JNoSQL.Entities.Client.*;
+import org.licenta2024JNoSQL.Entities.Produs.Produs;
 
 import java.util.List;
 
@@ -48,4 +49,7 @@ public interface ClientRepository extends Repository<Client, String> {
     List<Client> queryByFeedbackCodProdus(@Param("codProdus") String codProdus);
 
     List<Client> findByFeedbackCodProdus(String codProdus);
+
+    @Query("select * from Client")
+    List<Client> findAll();
 }

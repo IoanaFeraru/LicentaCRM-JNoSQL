@@ -1,13 +1,16 @@
 package org.licenta2024JNoSQL.Apps;
 
 import jakarta.nosql.mapping.document.DocumentTemplate;
-import org.licenta2024JNoSQL.Entities.Client.*;
+import org.licenta2024JNoSQL.Entities.Client.Client;
 import org.licenta2024JNoSQL.Entities.Client.Embeded.Adresa;
 import org.licenta2024JNoSQL.Entities.Client.Embeded.Feedback;
 import org.licenta2024JNoSQL.Entities.Client.Embeded.IstoricPuncte;
 import org.licenta2024JNoSQL.Entities.Client.Embeded.WishList;
 import org.licenta2024JNoSQL.Entities.Client.Enums.Judet;
 import org.licenta2024JNoSQL.Entities.Client.Enums.StatusMembru;
+import org.licenta2024JNoSQL.Repositories.ClientRepository;
+import org.licenta2024JNoSQL.Repositories.ProdusRepository;
+import org.licenta2024JNoSQL.Utils.FeedbackUtil;
 
 import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.se.SeContainerInitializer;
@@ -27,8 +30,13 @@ public class ClientApp {
         try (SeContainer container = SeContainerInitializer
                 .newInstance().initialize()) {
 
+            DocumentTemplate template = container.select(DocumentTemplate.class).get();
+            ProdusRepository produsRepository = container.select(ProdusRepository.class).get();
+            ClientRepository clientRepository = container.select(ClientRepository.class).get();
+            FeedbackUtil feedbackUtil = new FeedbackUtil(clientRepository, produsRepository, template);
+
             Client client = new Client();
-            client.setCodClient("C2");
+            client.setCodClient("C1");
             client.setNume("John");
             client.setPrenume("Doe");
             client.setDataNastere(new Date());
@@ -37,8 +45,6 @@ public class ClientApp {
             client.setPuncteLoialitate(100);
             client.setStatusMembru(StatusMembru.GOLD);
             client.setLastActive(new Date());
-
-            client.onCreate();
 
             Adresa adresa1 = new Adresa();
             adresa1.setJudet(Judet.BUCURESTI);
@@ -70,16 +76,17 @@ public class ClientApp {
             Set<ConstraintViolation<Client>> violations = validator.validate(client);
 
             if (violations.isEmpty()) {
-                DocumentTemplate template = container.select(DocumentTemplate.class).get();
                 template.insert(client);
+
+                // Call FeedbackUtil to update the product rating
+                feedbackUtil.updateProductRating(feedback1.getCodProdus());
 
                 final Optional<Client> queriedClient = template.find(Client.class, "C1");
                 System.out.println("query : " + queriedClient);
 
-                queriedClient.ifPresent(c -> {
-                    c.onUpdate();
-                    template.update(c);
-                });
+                // Uncomment below lines to delete the entity if needed
+                // DocumentDeleteQuery deleteQuery = delete().from("Client").where("_id").eq("C1").build();
+                // template.delete(deleteQuery);
 
                 System.out.println("query again: " +
                         template.find(Client.class, "C1"));

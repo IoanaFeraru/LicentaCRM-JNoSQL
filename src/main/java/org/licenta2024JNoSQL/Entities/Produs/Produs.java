@@ -4,7 +4,6 @@ import org.licenta2024JNoSQL.Entities.Produs.Enums.*;
 import jakarta.nosql.mapping.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.licenta2024JNoSQL.Meta.AbstractEntity;
 
 import javax.validation.constraints.*;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity("Produs")
-public class Produs extends AbstractEntity {
+public class Produs {
 
     @Id
     private String codProdus;  // Primary key
@@ -36,9 +35,4 @@ public class Produs extends AbstractEntity {
 
     @Column("Tag-uri")
     private List<@NotBlank String> tagUri;
-
-    @Override
-    public String getId() {
-        return codProdus;
-    }
 }

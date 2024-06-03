@@ -4,6 +4,8 @@ import jakarta.nosql.mapping.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -15,9 +17,11 @@ public class Segment {
     private int codSegment;
 
     @Column
+    @NotBlank
     private String nume;
 
     @Column
+    @NotNull
     private String dataCreare;
 
     @Column

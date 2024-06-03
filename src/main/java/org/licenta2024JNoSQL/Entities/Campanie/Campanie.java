@@ -3,7 +3,9 @@ package org.licenta2024JNoSQL.Entities.Campanie;
 import jakarta.nosql.mapping.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.licenta2024JNoSQL.Entities.Campanie.Enums.Tip;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Getter
@@ -12,9 +14,6 @@ import java.util.Date;
 public class Campanie {
 
     @Id
-    private String id;
-
-    @Column
     private int codCampanie;
 
     @Column
@@ -24,14 +23,17 @@ public class Campanie {
     private String nume;
 
     @Column
+    @NotNull
     private Date dataStart;
 
     @Column
     private Date dataStop;
 
     @Column
-    private String tip;
+    @NotNull
+    private Tip tip;
 
     @Column
+    @NotNull
     private Comunicare comunicare;
 }
