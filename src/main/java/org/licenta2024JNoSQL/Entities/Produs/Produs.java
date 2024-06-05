@@ -14,7 +14,7 @@ import java.util.List;
 public class Produs {
 
     @Id
-    private String codProdus;  // Primary key
+    private String codProdus;
 
     @Column
     @NotBlank

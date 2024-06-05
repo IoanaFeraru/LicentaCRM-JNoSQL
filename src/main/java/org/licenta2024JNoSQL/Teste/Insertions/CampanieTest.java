@@ -1,4 +1,4 @@
-package org.licenta2024JNoSQL.Apps.Insertions;
+package org.licenta2024JNoSQL.Teste.Insertions;
 
 import jakarta.nosql.mapping.document.DocumentTemplate;
 import org.licenta2024JNoSQL.Entities.Campanie.Campanie;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.validation.ConstraintViolation;
 
-public class CampanieApp {
+public class CampanieTest {
 
     public static void main(String[] args) {
 

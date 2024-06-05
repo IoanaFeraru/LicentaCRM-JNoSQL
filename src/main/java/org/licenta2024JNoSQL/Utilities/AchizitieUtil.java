@@ -76,7 +76,6 @@ public class AchizitieUtil {
                 }
             }
         }
-
         achizitie.setValoarePuncte(String.valueOf(valoarePuncte));
     }
 

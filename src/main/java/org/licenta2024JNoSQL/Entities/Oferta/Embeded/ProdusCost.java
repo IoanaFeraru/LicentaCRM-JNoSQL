@@ -14,4 +14,6 @@ public class ProdusCost {
     private Produs produs;
     @Column
     private Integer costPuncte;
+    @Column
+    private String codFinal;
 }

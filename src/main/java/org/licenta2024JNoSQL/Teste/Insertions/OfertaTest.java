@@ -1,4 +1,4 @@
-package org.licenta2024JNoSQL.Apps.Insertions;
+package org.licenta2024JNoSQL.Teste.Insertions;
 
 import jakarta.nosql.mapping.document.DocumentTemplate;
 import org.licenta2024JNoSQL.Entities.Oferta.Embeded.ProdusCost;
@@ -21,13 +21,13 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class OfertaApp {
+public class OfertaTest {
 
     private static final Random random = new Random();
 
     public static void main(String[] args) {
         try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-            addMultipleOffers(container, 5); // Insert 5 offers
+            addMultipleOffers(container, 5);
         }
         System.exit(0);
     }
@@ -77,7 +77,6 @@ public class OfertaApp {
             }
         }
 
-        // Insert the other offers
         for (int i = 2; i <= numberOfOffers; i++) {
             Oferta oferta = new Oferta();
             oferta.setCodOferta("O" + i);

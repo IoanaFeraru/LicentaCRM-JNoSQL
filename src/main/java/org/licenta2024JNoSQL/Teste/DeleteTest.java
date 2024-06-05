@@ -1,4 +1,4 @@
-package org.licenta2024JNoSQL.Apps;
+package org.licenta2024JNoSQL.Teste;
 
 import jakarta.nosql.document.DocumentCollectionManager;
 import jakarta.nosql.document.DocumentDeleteQuery;
@@ -8,14 +8,14 @@ import javax.enterprise.inject.se.SeContainerInitializer;
 import javax.inject.Inject;
 import java.util.List;
 
-public class DeleteApp {
+public class DeleteTest {
 
     @Inject
     private DocumentCollectionManager manager;
 
     public static void main(String[] args) {
         try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-            DeleteApp app = container.select(DeleteApp.class).get();
+            DeleteTest app = container.select(DeleteTest.class).get();
             app.deleteAllDocuments(List.of("Client", "Produs", "Achizitie", "Oferta", "Campanie"));
         }
         System.exit(0);

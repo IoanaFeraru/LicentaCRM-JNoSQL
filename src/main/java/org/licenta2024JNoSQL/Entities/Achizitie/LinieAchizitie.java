@@ -24,5 +24,5 @@ public class LinieAchizitie {
     private int cantitate;
 
     @Column
-    private double price; // Price per line (product price*quantity)
+    private double price; // Price per line: (product price*quantity)
 }

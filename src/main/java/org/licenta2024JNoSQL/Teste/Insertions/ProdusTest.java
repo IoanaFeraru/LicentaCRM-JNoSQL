@@ -1,4 +1,4 @@
-package org.licenta2024JNoSQL.Apps.Insertions;
+package org.licenta2024JNoSQL.Teste.Insertions;
 
 import jakarta.nosql.mapping.document.DocumentTemplate;
 import org.licenta2024JNoSQL.Entities.Produs.Enums.Status;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-public class ProdusApp {
+public class ProdusTest {
 
     public static void main(String[] args) {
         try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {

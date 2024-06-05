@@ -19,7 +19,7 @@ import java.util.List;
 public class Client {
 
     @Id
-    private String codClient;  // Primary key
+    private String codClient;
 
     @Column
     @NotBlank

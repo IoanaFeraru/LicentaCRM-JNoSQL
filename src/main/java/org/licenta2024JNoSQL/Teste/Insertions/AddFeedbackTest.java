@@ -1,4 +1,4 @@
-package org.licenta2024JNoSQL.Apps.Insertions;
+package org.licenta2024JNoSQL.Teste.Insertions;
 
 import jakarta.nosql.mapping.document.DocumentTemplate;
 import org.licenta2024JNoSQL.Entities.Achizitie.Achizitie;
@@ -22,7 +22,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import javax.validation.ConstraintViolation;
 
-public class AddFeedbackApp {
+public class AddFeedbackTest {
 
     private static final Random random = new Random();
 
